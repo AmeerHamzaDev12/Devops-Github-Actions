@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getAssetPath } from "./utils/assetPath";
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
         This is a simple example of a Next.js app deployed on GitHub Pages.
       </p>
       <Image
-        src="/file.svg"
+        src={getAssetPath("/file.svg")}
         alt="Hero Image"
         width={500}
         height={300}

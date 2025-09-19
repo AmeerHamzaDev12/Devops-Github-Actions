@@ -26,6 +26,8 @@ jobs:
 
       - name: Build the Next.js app
         run: npm run build
+        env:
+          DEPLOY_ENV: github-pages
 
       - name: Add .nojekyll file
         run: touch out/.nojekyll
