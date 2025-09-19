@@ -1,4 +1,4 @@
-name: CI/CD for React App
+name: CI/CD for Next.js App
 on:
   push:
     branches:
@@ -24,17 +24,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the React app
+      - name: Build the Next.js app
         run: npm run build
+
+      - name: Add .nojekyll file
+        run: touch out/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./out
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy React app to GitHub Pages'
+          commit_message: 'Deploy Next.js app to GitHub Pages'
           keep_files: false
           force_orphan: true
           target_branch: gh-pages
