@@ -45,3 +45,8 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+      - name: Debug FTP secrets
+        run: |
+          echo "Server is -> ${{ secrets.FTP_SERVER }}"
+          echo "Username is -> ${{ secrets.FTP_USERNAME }}"
+          echo "Password is -> ${{ secrets.FTP_PASSWORD }}"
