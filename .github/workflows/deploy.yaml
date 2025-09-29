@@ -1,4 +1,5 @@
 name: CI/CD for Next.js App
+
 on:
   push:
     branches:
@@ -26,20 +27,19 @@ jobs:
 
       - name: Build the Next.js app
         run: npm run build
-        env:
-          DEPLOY_ENV: github-pages
+
+      - name: Export static site
+        run: npm run export
 
       - name: Add .nojekyll file
         run: touch out/.nojekyll
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy via FTP
+        uses: SamKirkland/ftp-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy Next.js app to GitHub Pages'
-          keep_files: false
-          force_orphan: true
-          target_branch: gh-pages
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: out

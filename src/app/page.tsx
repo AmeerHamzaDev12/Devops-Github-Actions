@@ -9,7 +9,7 @@ export default function Home() {
         This is a simple example of a Next.js app deployed on GitHub Pages.
       </p>
       <Image
-        src={getAssetPath("/file.svg")}
+        src={getAssetPath("/window.svg")}
         alt="Hero Image"
         width={500}
         height={300}
