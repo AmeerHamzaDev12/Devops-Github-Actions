@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install dependencies
         run: npm install
@@ -47,3 +47,8 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+      - name: Debug FTP secrets
+        run: |
+          echo "FTP_SERVER is -> ${{ secrets.FTP_SERVER }}"
+          echo "FTP_USERNAME is -> ${{ secrets.FTP_USERNAME }}"
+          echo "FTP_PASSWORD is -> ${{ secrets.FTP_PASSWORD }}"
