@@ -20,35 +20,28 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the Next.js app
         run: npm run build
-        env:
-          DEPLOY_ENV: ftp
 
       - name: Add .nojekyll file
         run: touch out/.nojekyll
 
-      - name: Deploy via FTP
-        uses: SamKirkland/ftp-deploy-action@v4.3.5
+      - name: Deploy via FTP (stable version)
+        uses: SamKirkland/ftp-deploy-action@v4.3.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          local-dir: /
+          local-dir: ./out/
           server-dir: ./public_html/
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-      - name: Debug FTP secrets
-        run: |
-          echo "FTP_SERVER is -> ${{ secrets.FTP_SERVER }}"
-          echo "FTP_USERNAME is -> ${{ secrets.FTP_USERNAME }}"
-          echo "FTP_PASSWORD is -> ${{ secrets.FTP_PASSWORD }}"
