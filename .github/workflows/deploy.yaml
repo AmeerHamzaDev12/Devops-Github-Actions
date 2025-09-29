@@ -27,6 +27,8 @@ jobs:
 
       - name: Build the Next.js app
         run: npm run build
+        env:
+          DEPLOY_ENV: ftp
 
       - name: Add .nojekyll file
         run: touch out/.nojekyll
@@ -39,4 +41,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          local-dir: out
+          local-dir: ./out/
+          server-dir: ./public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**

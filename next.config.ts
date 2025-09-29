@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 
-// Check if we're in GitHub Pages deployment mode
-// GitHub Actions sets GITHUB_ACTIONS=true, but we also check NODE_ENV for safety
-const isGithubPages = process.env.GITHUB_ACTIONS === 'true' || 
-                     (process.env.NODE_ENV === 'production' && process.env.DEPLOY_ENV === 'github-pages');
+// Check deployment environment
+const isGithubPages = process.env.DEPLOY_ENV === 'github-pages';
+const isFTPDeploy = process.env.DEPLOY_ENV === 'ftp';
 
 const nextConfig: NextConfig = {
-  // Enable static export for GitHub Pages
+  // Enable static export for all deployments
   output: 'export',
   
   // Disable image optimization for static export
@@ -14,7 +13,7 @@ const nextConfig: NextConfig = {
     unoptimized: true
   },
   
-  // Only set basePath and assetPrefix for GitHub Pages deployment
+  // Only set basePath for GitHub Pages (FTP doesn't need basePath)
   ...(isGithubPages && {
     basePath: '/Devops-Github-Actions',
     assetPrefix: '/Devops-Github-Actions',
